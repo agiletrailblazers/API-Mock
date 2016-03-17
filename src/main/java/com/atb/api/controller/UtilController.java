@@ -1,4 +1,4 @@
-package com.gs.api.controller;
+package com.atb.api.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,10 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
@@ -44,14 +47,20 @@ public class UtilController extends BaseController {
      */
     @RequestMapping(value = "/env", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     public @ResponseBody String env() throws Exception {
-        logger.trace("Service env initiated");
+        logger.info("Service env initiated");
         return propertyName;
     }
     
     @RequestMapping(value = "/loans", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String getLoansDelinquent(@RequestParam String status) throws Exception {
-        logger.trace("Loans: " + status);
+        logger.info("Loans: " + status);
         return loans;
+    }
+    
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/loans/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateLoan(@PathVariable("id") String id, @RequestBody String loadBody) throws Exception {
+        logger.info("Update to load id: " + id);
     }
     
 }

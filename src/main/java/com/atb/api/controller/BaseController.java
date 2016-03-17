@@ -1,4 +1,4 @@
-package com.gs.api.controller;
+package com.atb.api.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +51,7 @@ public abstract class BaseController {
     @ExceptionHandler({ HttpMessageNotReadableException.class })
     @ResponseBody
     public String handleValidationException(HttpMessageNotReadableException ex) throws IOException {
+        logger.error("Bad error: ", ex);
         // method called when a input validation failure occurs
         return "{\"message\": \"Invalid Request \"}";
     }
